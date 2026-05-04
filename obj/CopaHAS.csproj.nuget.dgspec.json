@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Andrade_Porfirio\\PAMII\\CopaHAS\\CopaHAS.csproj": {}
+    "D:\\Andrade_Porfirio\\PAMII\\AvaliacaoCopaHAS\\AvaliacaoCopaHAS\\CopaHAS.csproj": {}
   },
   "projects": {
-    "D:\\Andrade_Porfirio\\PAMII\\CopaHAS\\CopaHAS.csproj": {
+    "D:\\Andrade_Porfirio\\PAMII\\AvaliacaoCopaHAS\\AvaliacaoCopaHAS\\CopaHAS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Andrade_Porfirio\\PAMII\\CopaHAS\\CopaHAS.csproj",
+        "projectUniqueName": "D:\\Andrade_Porfirio\\PAMII\\AvaliacaoCopaHAS\\AvaliacaoCopaHAS\\CopaHAS.csproj",
         "projectName": "CopaHAS",
-        "projectPath": "D:\\Andrade_Porfirio\\PAMII\\CopaHAS\\CopaHAS.csproj",
+        "projectPath": "D:\\Andrade_Porfirio\\PAMII\\AvaliacaoCopaHAS\\AvaliacaoCopaHAS\\CopaHAS.csproj",
         "packagesPath": "D:\\NUGET_PACKAGES",
-        "outputPath": "D:\\Andrade_Porfirio\\PAMII\\CopaHAS\\obj\\",
+        "outputPath": "D:\\Andrade_Porfirio\\PAMII\\AvaliacaoCopaHAS\\AvaliacaoCopaHAS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
