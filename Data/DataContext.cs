@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AvaliacaoCopaHAS.Models;
 using CopaHAS.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -17,11 +18,80 @@ namespace CopaHAS.Data
         }
         public DbSet<Jogador> TB_JOGADORES { get; set; }      
         public DbSet<Estadio> TB_ESTADIOS {get; set;}
+        public DbSet <Selecao> TB_SELECOES { get; set; }
+        public DbSet <Tecnico> TB_TECNICOS { get; set; }
+        public DbSet <Jogo> TB_JOGOS { get; set; }
+        public DbSet <JogoSelecao> TB_JOGO_SELECOES { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Jogador>().ToTable("TB_JOGADORES");
+            modelBuilder.Entity<Jogador>().ToTable("TBL_JOGADORES");
+            modelBuilder.Entity<Jogador>(entity => 
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Nome)
+                      .IsRequired()
+                      .HasMaxLength(100);
+                entity.Property(e => e.Posicao)
+                      .HasMaxLength(50);
+                entity.HasOne(d => d.SelecaoIdNavegacao)
+                      .WithMany(p => p.Jogadores)
+                      .HasForeignKey(d => d.SelecaoId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
             modelBuilder.Entity<Estadio>().ToTable("TB_ESTADIOS");
+            modelBuilder.Entity<Estadio>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Nome)
+                      .IsRequired()
+                      .HasMaxLength(150);
+                entity.Property(e => e.Cidade)
+                      .HasMaxLength(100);
+            });
+            modelBuilder.Entity<Selecao>().ToTable("TBL_SELECOES");
+            modelBuilder.Entity<Selecao>(entity =>
+            {
+                entity.HasKey(e=> e.Id);
+                entity.Property(e=> e.Pais)
+                    .IsRequired()
+                    .HasMaxLength(100);   
+            });
+            modelBuilder.Entity<Tecnico>().ToTable("TB_TECNICOS");
+            modelBuilder.Entity<Tecnico>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Nome)
+                      .IsRequired()
+                      .HasMaxLength(100);
+                entity.HasOne(d => d.SelecaoIdNavegacao)
+                      .WithOne(p => p.Tecnico)
+                      .HasForeignKey<Tecnico>(d => d.SelecaoIdNavegacao)
+                      .OnDelete(DeleteBehavior.Cascade); 
+            });
+            modelBuilder.Entity<Jogo>().ToTable("TB_JOGOS");
+            modelBuilder.Entity<Jogo>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.DataHora)                      
+                      .IsRequired();
+                entity.HasOne(d => d.EstadioIdNavegacao)
+                      .WithMany(p => p.Jogos)
+                      .HasForeignKey(d => d.EstadioId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+            modelBuilder.Entity<JogoSelecao>().ToTable("TB_JOGO_SELECOES");
+            modelBuilder.Entity<JogoSelecao>(entity=>
+            {
+                entity.HasKey(e=> new {e.JogoId,e.SelecaoId});
+                entity.HasOne(d=> d.JogoIdNavegacao)
+                      .WithMany(p=> p.Jogoselecoes)
+                      .HasForeignKey(d=> d.JogoId);
+                entity.HasOne(d=> d.SelecaoIdNavegacao)
+                      .WithMany(p => p.JogosSelecoes)
+                      .HasForeignKey(d=> d.SelecaoId);
+            });
 
             modelBuilder.Entity<Jogador>().HasData
             (
