@@ -67,7 +67,7 @@ namespace CopaHAS.Data
                       .HasMaxLength(100);
                 entity.HasOne(d => d.SelecaoIdNavegacao)
                       .WithOne(p => p.Tecnico)
-                      .HasForeignKey<Tecnico>(d => d.SelecaoIdNavegacao)
+                      .HasForeignKey<Tecnico>(d => d.SelecaoId)
                       .OnDelete(DeleteBehavior.Cascade); 
             });
             modelBuilder.Entity<Jogo>().ToTable("TB_JOGOS");
@@ -81,7 +81,7 @@ namespace CopaHAS.Data
                       .HasForeignKey(d => d.EstadioId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
-            modelBuilder.Entity<JogoSelecao>().ToTable("TB_JOGO_SELECOES");
+            modelBuilder.Entity<JogoSelecao>().ToTable("TB_JOGOS_SELECOES");
             modelBuilder.Entity<JogoSelecao>(entity=>
             {
                 entity.HasKey(e=> new {e.JogoId,e.SelecaoId});
